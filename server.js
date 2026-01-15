@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const { MongoClient, ObjectId } = require('mongodb')
+const mongoose = require('mongoose')
 const { response } = require('express')
 const { request } = require('http')
 require('dotenv').config()
@@ -50,7 +51,7 @@ app.get("/search", async (request, response) => {
 app.get("/get/:id", async (request, response) => {
     try {
         let result = await collection.findOne({
-            "_id": ObjectId(request.params.id)
+            "_id": new mongoose.Types.ObjectId(request.params.id)
         })
         response.send(result)
     } catch (error) {
